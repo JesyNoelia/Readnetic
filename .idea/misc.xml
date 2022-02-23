@@ -3,7 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/drawable/button_bg.xml" value="0.2135" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/drawable/ctr_bg.xml" value="0.2135" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/drawable/ic_home.xml" value="0.1" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/drawable/ic_settings.xml" value="0.1" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/drawable/ic_widgets.xml" value="0.249" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/drawable/ic_work.xml" value="0.1" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/drawable/layout_bg.xml" value="0.2135" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/drawable/profile.xml" value="0.2135" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/drawable/shape.xml" value="0.2135" />
         <entry key="..\:/readnetic/Readnetic/app/src/main/res/layout/activity_main.xml" value="0.17395833333333333" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/layout/fragment_detail.xml" value="0.17395833333333333" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/layout/fragment_login.xml" value="0.17929292929292928" />
+        <entry key="..\:/readnetic/Readnetic/app/src/main/res/layout/fragment_register.xml" value="0.16296296296296298" />
       </map>
     </option>
   </component>
