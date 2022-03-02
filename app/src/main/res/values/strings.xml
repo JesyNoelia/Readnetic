@@ -16,4 +16,9 @@
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="adress">Address</string>
+
+    <!--Card-->
+    <string name="cover">Cover</string>
+    <string name="title_place_holder">Title Place Holder</string>
+    <string name="author_placeholder">Author PlaceHolder</string>
 </resources>
