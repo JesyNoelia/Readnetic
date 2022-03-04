@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
 
-        <!--<com.airbnb.lottie.LottieAnimationView
+        <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottielog"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tvLogin"/>-->
+            app:layout_constraintBottom_toTopOf="@id/tvLogin"/>
 
         <TextView
             android:id="@+id/tvLogin"
