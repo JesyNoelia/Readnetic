@@ -42,7 +42,7 @@ class BooksAdapter() : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
         fun bind(item: Book, bookListener: (Book) -> Unit) {
             binding.tvTitle.text = item.title
             binding.author.text = item.author
-            binding.cover.loadUrl(item.picture)
+            binding.cover.loadUrl(item.bookPicture)
             binding.cardView.setOnClickListener { bookListener(item) }
         }
 
