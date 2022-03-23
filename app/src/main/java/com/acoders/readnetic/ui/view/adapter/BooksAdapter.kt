@@ -28,21 +28,23 @@ class BooksAdapter() : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
         this.context = context
     }
 
-    override fun getItemCount() = collection.size
+    override fun getItemCount() = books.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(parent.inflate(R.layout.card_book))
 
     override fun onBindViewHolder(holder: BooksAdapter.ViewHolder, position: Int) {
-        holder.bind(collection[position], bookListener)
+        holder.bind(books[position], bookListener)
     }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val binding = CardBookBinding.bind(itemView)
         fun bind(item: Book, bookListener: (Book) -> Unit) {
             binding.tvTitle.text = item.title
-            binding.author.text = item.author
-            binding.cover.loadUrl(item.bookPicture)
+            binding.author.text = item.authors.toString()
+            binding.cover.loadUrl(item.bookPicture ?: "")
+            item.bookPicture?.let { binding.cover.loadUrl(it) }
             binding.cardView.setOnClickListener { bookListener(item) }
         }
 
