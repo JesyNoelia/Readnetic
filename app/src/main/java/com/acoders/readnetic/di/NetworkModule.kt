@@ -27,5 +27,4 @@ object NetworkModule {
     fun provideBookApiClient(retrofit: Retrofit): BookApiClient {
         return retrofit.create(BookApiClient::class.java)
     }
-
 }

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Readnetic">
         <activity
-            android:name=".ui.view.ReadneticActivity"
+            android:name=".Readnetic"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

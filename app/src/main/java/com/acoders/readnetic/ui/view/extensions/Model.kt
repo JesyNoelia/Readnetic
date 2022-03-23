@@ -9,5 +9,5 @@ fun BookAPI.toBook() = Book(
     description = volumeInfo?.description,
     bookPicture = volumeInfo?.imageLinks?.thumbnail,
     date = volumeInfo?.publishedDate,
-    isbn = volumeInfo?.industryIdentifiers
+    //isbn = volumeInfo?.industryIdentifiers
 )

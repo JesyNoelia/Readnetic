@@ -2,7 +2,6 @@ package com.acoders.readnetic.ui.view.adapter
 
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,24 +28,22 @@ class BooksAdapter() : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
         this.context = context
     }
 
-    override fun getItemCount() = books.size
+    override fun getItemCount() = collection.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(parent.inflate(R.layout.card_book))
 
     override fun onBindViewHolder(holder: BooksAdapter.ViewHolder, position: Int) {
-        holder.bind(books[position], bookListener)
-
+        holder.bind(collection[position], bookListener)
     }
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val binding = CardBookBinding.bind(itemView)
         fun bind(item: Book, bookListener: (Book) -> Unit) {
             binding.tvTitle.text = item.title
-            binding.author.text = item.authors.toString()
-            binding.cover.loadUrl(item.bookPicture ?: "")
+            binding.author.text = item.author
+            binding.cover.loadUrl(item.bookPicture)
             binding.cardView.setOnClickListener { bookListener(item) }
-
         }
 
 
