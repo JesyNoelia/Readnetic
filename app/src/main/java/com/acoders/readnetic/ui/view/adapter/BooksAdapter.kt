@@ -2,6 +2,7 @@ package com.acoders.readnetic.ui.view.adapter
 
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -40,9 +41,10 @@ class BooksAdapter() : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
 
         private val binding = CardBookBinding.bind(itemView)
         fun bind(item: Book, bookListener: (Book) -> Unit) {
+            Log.d("TAG", "bind: $item")
             binding.tvTitle.text = item.title
-            binding.author.text = item.author
-            binding.cover.loadUrl(item.bookPicture)
+            binding.author.text = item.authors.toString()
+            item.bookPicture?.let { binding.cover.loadUrl(it) }
             binding.cardView.setOnClickListener { bookListener(item) }
         }
 
