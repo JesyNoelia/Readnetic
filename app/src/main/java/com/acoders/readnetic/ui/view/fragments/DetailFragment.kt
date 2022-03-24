@@ -5,12 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.acoders.readnetic.R
 import com.acoders.readnetic.databinding.FragmentDetailBinding
+import com.acoders.readnetic.ui.view.extensions.loadUrl
 
 class DetailFragment: Fragment(R.layout.fragment_detail) {
 
     private lateinit var binding: FragmentDetailBinding
+
+    private val safeArgs: DetailFragmentArgs by navArgs()
+    //private val viewModel: DetailViewModel by viewModels{}
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -18,5 +23,16 @@ class DetailFragment: Fragment(R.layout.fragment_detail) {
     ): View? {
         binding = FragmentDetailBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val binding = FragmentDetailBinding.bind(view)
+        binding.name.text = safeArgs.book.authors.toString()
+        binding.date.text = safeArgs.book.date
+        binding.collapsingToolbar.title = safeArgs.book.title
+        binding.descriptionTv.text = safeArgs.book.description
+        safeArgs.book.bookPicture?.let { binding.bookImageCT.loadUrl(it) }
     }
 }
