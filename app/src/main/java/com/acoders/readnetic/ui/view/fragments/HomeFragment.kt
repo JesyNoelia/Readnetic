@@ -47,7 +47,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun initView() {
         lifecycleScope.launch{
             binding.bookListRV.apply {
-                booksAdapter.BooksAdapter(repository.getAllBooksByAnyData("harry potter").data as MutableList<Book>, requireContext())
+                booksAdapter.BooksAdapter(repository.getAllBooks().data as MutableList<Book>, requireContext())
                 //layoutManager = LinearLayoutManager(context)
                 adapter = booksAdapter
             }

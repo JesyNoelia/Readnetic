@@ -21,12 +21,22 @@ class BookRepository @Inject constructor(private val service: BookService) {
         }
     }
 
-    suspend  fun getAllBooksByAnyData(anyData: String): Resource<List<Book>> {
-        val response = service.getAllBooksByAnyData(anyData)
+    suspend  fun getAllBooksByAnyData(data: String): Resource<List<Book>> {
+        val response = service.getAllBooksByAnyData(data)
         return when (response.data) {
             null -> Resource.Error(response.message ?: "Something went wrong")
             else -> {
                 Log.d("***response", response.data.map { it.toBook()}.toString())
+                Resource.Success(response.data.map { it.toBook() })
+            }
+        }
+    }
+
+    suspend  fun getAllBooks(): Resource<List<Book>> {
+        val response = service.getAllBooks()
+        return when (response.data) {
+            null -> Resource.Error(response.message ?: "Something went wrong")
+            else -> {
                 Resource.Success(response.data.map { it.toBook() })
             }
         }

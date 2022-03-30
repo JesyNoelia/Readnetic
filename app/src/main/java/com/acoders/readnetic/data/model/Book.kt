@@ -1,10 +1,10 @@
 package com.acoders.readnetic.data.model
 
-import com.acoders.readnetic.data.network.model.IndustryIdentifiers
+import com.acoders.readnetic.data.network.model.googleBooksModel.IndustryIdentifiers
 import java.io.Serializable
 
 data class Book(
-    var authors: List<String>? = emptyList(),
+    var authors: List<String?>? = emptyList(),
     var title: String? = null,
     var description: String? = null,
     var bookPicture: String? = null,
