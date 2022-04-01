@@ -1,6 +1,5 @@
 package com.acoders.readnetic.data.network
 
-import android.util.Log
 import com.acoders.readnetic.data.network.model.googleBooksModel.BookGoogleBooks
 import com.acoders.readnetic.data.network.model.googleBooksModel.ResponseGoogleBooks
 import com.acoders.readnetic.data.network.model.nytmodel.BookNyt
@@ -16,11 +15,11 @@ class BookService @Inject constructor(
     private val apiNYT: BookApiClientNYT
 ) {
 
-    suspend fun getAllBooksByISBN(isbn: String): Resource<List<BookGoogleBooks>> {
+    suspend fun getBooksByISBN(isbn: String): Resource<List<BookGoogleBooks>> {
         return withContext(Dispatchers.IO) {
             val query = buildIsbnQuery(isbn)
             val responseGoogleBooks: Response<ResponseGoogleBooks> =
-                apiGoogleBooks.getAllBooksByISBN(isbn)
+                apiGoogleBooks.getAllBooksByISBN(query)
             try {
                 Resource.Success(responseGoogleBooks.body()?.items ?: emptyList())
             } catch (e: Exception) {
@@ -29,7 +28,7 @@ class BookService @Inject constructor(
         }
     }
 
-    suspend fun getAllBooksByAnyData(anyData: String): Resource<List<BookGoogleBooks>> {
+    suspend fun getBooksByAnyData(anyData: String): Resource<List<BookGoogleBooks>> {
         return withContext(Dispatchers.IO) {
             val responseGoogleBooks: Response<ResponseGoogleBooks> =
                 apiGoogleBooks.getAllBooksByAnyData(anyData)
@@ -45,7 +44,7 @@ class BookService @Inject constructor(
         return String.format("isbn:$isbn")
     }
 
-    suspend fun getAllBooks(): Resource<List<BookNyt>> {
+    suspend fun getBestsellers(): Resource<List<BookNyt>> {
         return withContext(Dispatchers.IO) {
             val responseNyt: Response<ResponseNyt> = apiNYT.getAllBooks()
             try {
