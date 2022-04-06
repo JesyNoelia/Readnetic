@@ -8,7 +8,7 @@ fun BookGoogleBooks.toBook() = Book(
     authors = volumeInfo?.authors,
     title = volumeInfo?.title,
     description = volumeInfo?.description,
-    bookPicture = volumeInfo?.imageLinks?.thumbnail,
+    bookPicture = volumeInfo?.imageLinks?.thumbnail?.replace("http://", "https://", true),
     date = volumeInfo?.publishedDate,
     //isbn = volumeInfo?.industryIdentifiers
 )
