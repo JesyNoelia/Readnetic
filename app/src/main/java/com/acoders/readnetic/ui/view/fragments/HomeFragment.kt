@@ -1,14 +1,18 @@
 package com.acoders.readnetic.ui.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import com.acoders.readnetic.R
+import com.acoders.readnetic.data.database.BooksDatabase
 import com.acoders.readnetic.data.model.Book
+import com.acoders.readnetic.data.typeconverters.Converters
 import com.acoders.readnetic.databinding.FragmentHomeBinding
 import com.acoders.readnetic.ui.view.adapter.BooksAdapter
 import com.acoders.readnetic.usecase.GetBestsellersUseCase
@@ -24,10 +28,14 @@ import javax.inject.Inject
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val booksAdapter by lazy { BooksAdapter() }
     private lateinit var binding: FragmentHomeBinding
+
     @Inject
     lateinit var getBestsellersUseCase: GetBestsellersUseCase
+
     @Inject
     lateinit var getBooksByISBNUseCase: GetBooksByISBNUseCase
+
+    private var roomDatabase: BooksDatabase? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +53,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun initListeners() {
-        booksAdapter.bookListener = {book ->
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment2(book))
+        booksAdapter.bookListener = { book ->
+            findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToDetailFragment2(
+                    book
+                )
+            )
         }
         binding.btnAppDrawer.setOnClickListener {
             onFBClick()
@@ -54,9 +66,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun initView() {
-        lifecycleScope.launch{
+
+        roomDatabase = Room
+            .databaseBuilder(requireContext(), BooksDatabase::class.java, "BooksDB")
+            .addTypeConverter(Converters())
+            .build()
+
+
+        lifecycleScope.launch {
             binding.bookListRV.apply {
-                booksAdapter.BooksAdapter(getBestsellersUseCase().data as MutableList<Book>, requireContext())
+                booksAdapter.BooksAdapter(
+                    getBestsellersUseCase().data as MutableList<Book>,
+                    requireContext()
+                )
                 //layoutManager = LinearLayoutManager(context)
                 adapter = booksAdapter
             }
@@ -75,12 +97,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     // Register the launcher and result handler
-    private val barcodeLauncher = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
-        lifecycleScope.launch {
-            if (result.contents != null) {
-                val book:Book = getBooksByISBNUseCase(result.contents).data?.get(0) ?: Book()
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment2(book))
+    private val barcodeLauncher =
+        registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
+            lifecycleScope.launch {
+                if (result.contents != null) {
+                    val book: Book = getBooksByISBNUseCase(result.contents).data?.get(0) ?: Book()
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionHomeFragmentToDetailFragment2(
+                            book
+                        )
+                    )
+                }
             }
         }
-    }
 }

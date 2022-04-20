@@ -70,12 +70,12 @@ dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 
     //Navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
     // Feature module Support
-    implementation"androidx.navigation:navigation-dynamic-features-fragment:2.4.1"
+    implementation"androidx.navigation:navigation-dynamic-features-fragment:2.4.2"
     // Testing Navigation
-    androidTestImplementation"androidx.navigation:navigation-testing:2.4.1"
+    androidTestImplementation"androidx.navigation:navigation-testing:2.4.2"
 
     //Room
     implementation 'androidx.room:room-runtime:2.4.2'
@@ -101,4 +101,6 @@ dependencies {
 
     //ISBN Scanner
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
+
 }

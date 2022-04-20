@@ -31,4 +31,6 @@ class BookRepository @Inject constructor(private val service: BookService) {
             else -> Resource.Success(bookList.data.map { it.toBook() })
         }
     }
+
+    //suspend fun updateDB() {}
 }
