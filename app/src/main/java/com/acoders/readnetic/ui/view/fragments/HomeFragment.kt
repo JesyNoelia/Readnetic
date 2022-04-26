@@ -1,7 +1,6 @@
 package com.acoders.readnetic.ui.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.acoders.readnetic.data.typeconverters.Converters
 import com.acoders.readnetic.databinding.FragmentHomeBinding
 import com.acoders.readnetic.ui.view.adapter.BooksAdapter
 import com.acoders.readnetic.usecase.GetBestsellersUseCase
+import com.acoders.readnetic.usecase.GetBooksByAnyDataUseCase
 import com.acoders.readnetic.usecase.GetBooksByISBNUseCase
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
@@ -35,13 +35,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     @Inject
     lateinit var getBooksByISBNUseCase: GetBooksByISBNUseCase
 
+    @Inject
+    lateinit var getBooksByAnyDataUseCase: GetBooksByAnyDataUseCase
+
     private var roomDatabase: BooksDatabase? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -63,6 +66,23 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.btnAppDrawer.setOnClickListener {
             onFBClick()
         }
+        binding.searchView.setOnQueryTextListener(object: android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                lifecycleScope.launch {
+                    binding.bookListRV.apply {
+                        booksAdapter.BooksAdapter(
+                            getBooksByAnyDataUseCase.invoke(query).data as MutableList<Book>,
+                            requireContext()
+                        )
+                        adapter = booksAdapter
+                    }
+                }
+                return true
+            }
+        })
     }
 
     private fun initView() {
