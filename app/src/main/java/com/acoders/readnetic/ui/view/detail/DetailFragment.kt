@@ -5,12 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.acoders.readnetic.R
 import com.acoders.readnetic.databinding.FragmentDetailBinding
 import com.acoders.readnetic.ui.view.extensions.loadUrl
+import com.acoders.readnetic.ui.view.viewmodels.DetailViewModel
 
 class DetailFragment: Fragment(R.layout.fragment_detail) {
+
+    private val viewModel: DetailViewModel by viewModels {
+        DetatailViewModelFactory(arguments?.getParcelable<>())
+    }
 
     private lateinit var binding: FragmentDetailBinding
 

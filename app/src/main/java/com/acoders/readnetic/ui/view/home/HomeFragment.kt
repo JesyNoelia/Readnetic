@@ -40,20 +40,38 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var roomDatabase: BooksDatabase? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater)
-        return binding.root
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentHomeBinding.bind(view).apply {
+            bookListRV.adapter = booksAdapter
+        }
         initView()
         initListeners()
     }
+
+
+    private fun initView() {
+        roomDatabase = Room
+            .databaseBuilder(requireContext(), BooksDatabase::class.java, "BooksDB")
+            .addTypeConverter(Converters())
+            .build()
+
+
+        lifecycleScope.launch {
+            binding.bookListRV.apply {
+                booksAdapter.BooksAdapter(
+                    getBestsellersUseCase().data as MutableList<Book>,
+                    requireContext()
+                )
+                //layoutManager = LinearLayoutManager(context)
+                adapter = booksAdapter
+            }
+        }
+    }
+
+
 
     private fun initListeners() {
         booksAdapter.bookListener = { book ->
@@ -85,25 +103,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
     }
 
-    private fun initView() {
-
-        roomDatabase = Room
-            .databaseBuilder(requireContext(), BooksDatabase::class.java, "BooksDB")
-            .addTypeConverter(Converters())
-            .build()
-
-
-        lifecycleScope.launch {
-            binding.bookListRV.apply {
-                booksAdapter.BooksAdapter(
-                    getBestsellersUseCase().data as MutableList<Book>,
-                    requireContext()
-                )
-                //layoutManager = LinearLayoutManager(context)
-                adapter = booksAdapter
-            }
-        }
-    }
 
     private fun onFBClick() {
         val options = ScanOptions()
