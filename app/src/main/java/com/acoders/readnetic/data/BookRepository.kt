@@ -1,12 +1,19 @@
 package com.acoders.readnetic.data
 
-import com.acoders.readnetic.data.model.Book
+
+import com.acoders.readnetic.data.datasource.BookLocalDataSource
 import com.acoders.readnetic.data.network.BookService
 import com.acoders.readnetic.data.network.Resource
 import com.acoders.readnetic.ui.view.extensions.toBook
+import com.acoders.readnetic.domain.Error
+import com.acoders.readnetic.domain.Book
 import javax.inject.Inject
 
-class BookRepository @Inject constructor(private val service: BookService) {
+
+class BookRepository @Inject constructor(
+    private val service: BookService,
+    private val localDataSource: BookLocalDataSource
+    ) {
 
     suspend fun getBooksByISBN(isbn: String): Resource<List<Book>> {
         val bookList = service.getBooksByISBN(isbn)
@@ -30,6 +37,11 @@ class BookRepository @Inject constructor(private val service: BookService) {
             null -> Resource.Error(bookList.message ?: "Something went wrong")
             else -> Resource.Success(bookList.data.map { it.toBook() })
         }
+    }
+
+    suspend fun switchFavorite(book: Book): Error? {
+        val updatedBook = book.copy(favorite = !book.favorite!!)
+        return localDataSource.save(listOf(updatedBook))
     }
 
     //suspend fun updateDB() {}
