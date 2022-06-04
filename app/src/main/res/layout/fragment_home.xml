@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.view.fragments.HomeFragment">
+    >
+
+    <data>
+        <import type="java.util.List" />
+
+        <import type="com.acoders.readnetic.domain.Book" />
+
+        <variable
+            name="loading"
+            type="boolean" />
+
+        <variable
+            name="books"
+            type="List&lt;Book>" />
+
+        <variable
+            name="error"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.view.fragments.HomeFragment">
 
         <SearchView
         android:id="@+id/searchView"
@@ -29,10 +51,24 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:spanCount="2"
+        app:items="@{books}"
+        app:visible="@{ error == null }"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/app_bottom_bar"
         app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            app:layout_constraintTop_toBottomOf="@id/searchView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/app_bottom_bar"
+            app:visible="@{loading}"/>
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -143,7 +179,7 @@
                         android:id="@+id/im_button_app_bar4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_favorite" />
+                        app:srcCompat="@drawable/ic_favorite_on" />
 
                     <TextView
                         android:id="@+id/tv_button_app_bar4"
@@ -183,6 +219,8 @@
 
         </com.google.android.material.bottomappbar.BottomAppBar>
 
+
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnAppDrawer"
             android:layout_width="wrap_content"
@@ -196,5 +234,6 @@
             app:tint="@color/white" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

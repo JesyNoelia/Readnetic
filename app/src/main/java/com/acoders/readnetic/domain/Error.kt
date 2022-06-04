@@ -1,3 +1,7 @@
 package com.acoders.readnetic.domain
 
-sealed interface Error
+sealed interface Error {
+    class Server(val code: Int) : Error
+    object Connectivity : Error
+    class Unknown(val message: String) : Error
+}
