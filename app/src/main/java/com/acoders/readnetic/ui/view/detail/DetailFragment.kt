@@ -1,4 +1,4 @@
-package com.acoders.readnetic.ui.view.fragments
+package com.acoders.readnetic.ui.view.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.acoders.readnetic.R
 import com.acoders.readnetic.databinding.FragmentDetailBinding
-import com.acoders.readnetic.ui.view.detail.DetailViewModel
-import com.acoders.readnetic.ui.view.extensions.loadUrl
+import com.acoders.readnetic.ui.view.extensions.launchAndCollect
 
 class DetailFragment: Fragment(R.layout.fragment_detail) {
 
@@ -21,7 +20,8 @@ class DetailFragment: Fragment(R.layout.fragment_detail) {
     private lateinit var binding: FragmentDetailBinding
 
     private val safeArgs: DetailFragmentArgs by navArgs()
-    //private val viewModel: DetailViewModel by viewModels{}
+    private val viewModel: DetailViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,10 +35,19 @@ class DetailFragment: Fragment(R.layout.fragment_detail) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentDetailBinding.bind(view)
-        binding.name.text = safeArgs.book.authors.toString()
+
+        binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        binding.bookDetailFavorite.setOnClickListener { viewModel.onFavoriteClicked() }
+
+        viewLifecycleOwner.launchAndCollect(viewModel.state){state->
+            if(state.book !=null){
+                binding.book = state.book
+            }
+        }
+        /*binding.name.text = safeArgs.book.authors.toString()
         binding.date.text = safeArgs.book.date
         binding.collapsingToolbar.title = safeArgs.book.title
         binding.descriptionTv.text = safeArgs.book.description
-        safeArgs.book.bookPicture?.let { binding.bookImageCT.loadUrl(it) }
+        safeArgs.book.bookPicture?.let { binding.bookImageCT.loadUrl(it) }*/
     }
 }

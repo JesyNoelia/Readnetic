@@ -1,7 +1,9 @@
 package com.acoders.readnetic.data.database.entity
 
+import android.os.Parcelable
 import androidx.room.*
 import com.acoders.readnetic.data.typeconverters.Converters
+import kotlinx.parcelize.Parcelize
 
 @Entity
 data class BookEntity(
@@ -16,6 +18,8 @@ data class BookEntity(
     var title: String,
     @ColumnInfo(name = "description")
     var description: String,
+    @ColumnInfo(name = "favorite")
+    var favorite: Boolean,
     //@ColumnInfo(name = "isbn")
     //val isbn: MutableList<IndustryIdentifiers>?
 )

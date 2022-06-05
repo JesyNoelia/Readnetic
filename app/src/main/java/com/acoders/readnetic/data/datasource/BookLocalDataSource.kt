@@ -1,9 +1,9 @@
 package com.acoders.readnetic.data.datasource
 
-
 import com.acoders.readnetic.domain.Book
 import com.acoders.readnetic.domain.Error
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 interface BookLocalDataSource {
     val books: Flow<List<Book>>

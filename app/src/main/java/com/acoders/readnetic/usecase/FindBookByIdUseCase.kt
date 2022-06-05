@@ -1,4 +1,9 @@
 package com.acoders.readnetic.usecase
 
-class FindBookByIdUseCase {
+import com.acoders.readnetic.data.BookRepository
+import javax.inject.Inject
+
+class FindBookByIdUseCase @Inject constructor (private val repository: BookRepository) {
+
+    operator fun invoke(id: Int) = repository.findById(id)
 }

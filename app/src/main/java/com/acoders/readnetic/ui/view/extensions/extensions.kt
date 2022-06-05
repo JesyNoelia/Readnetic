@@ -8,7 +8,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DiffUtil
 import com.acoders.readnetic.ReadneticApp
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 inline fun <T> basicDiffUtil(
