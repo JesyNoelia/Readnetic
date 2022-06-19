@@ -4,6 +4,7 @@ package com.acoders.readnetic.ui.view.adapter
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.acoders.readnetic.R
 import com.acoders.readnetic.data.model.Book
@@ -33,8 +34,9 @@ class BooksAdapter() : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(parent.inflate(R.layout.card_book))
 
-    override fun onBindViewHolder(holder: BooksAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(books[position], bookListener)
+
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -45,7 +47,9 @@ class BooksAdapter() : RecyclerView.Adapter<BooksAdapter.ViewHolder>() {
             binding.author.text = item.authors.toString()
             binding.cover.loadUrl(item.bookPicture ?: "")
             item.bookPicture?.let { binding.cover.loadUrl(it) }
-            binding.cardView.setOnClickListener { bookListener(item) }
+            binding.cardView.setOnClickListener {
+                //Toast.makeText(context,"clicked, ${item}", Toast.LENGTH_SHORT).show()
+                bookListener(item) }
         }
 
 
