@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="palmBlue">#065893</color>
+    <color name="palmLightBlue">#179cbc</color>
+    <color name="palmLightGreen">#47c0a7</color>
+    <color name="palmLightOrange">#fbe4a3</color>
+    <color name="colorBackgroundGrey">#CC7E7E7E</color>
 </resources>
