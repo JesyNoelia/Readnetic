@@ -5,6 +5,7 @@ import com.acoders.readnetic.data.network.model.googleBooksModel.BookGoogleBooks
 import com.acoders.readnetic.data.network.model.nytmodel.BookNyt
 import com.acoders.readnetic.domain.Book
 
+/*
 fun BookGoogleBooks.toBook() = com.acoders.readnetic.domain.Book(
     id = 1,
     authors = volumeInfo?.authors,
@@ -26,4 +27,4 @@ fun BookNyt.toBook() = com.acoders.readnetic.domain.Book(
     date = createdDate,
     isbn = null,
     favorite = false,
-)
+)*/

@@ -7,5 +7,5 @@ import javax.inject.Inject
 
 class GetPopularBooksUseCase @Inject constructor(private val repository: BookRepository) {
 
-    operator fun invoke(): Flow<List<Book>> = repository.popularBooks
+    /*operator fun invoke(): Flow<List<Book>> = repository.popularBooks*/
 }

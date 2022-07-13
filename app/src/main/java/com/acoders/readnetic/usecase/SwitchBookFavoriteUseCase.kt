@@ -5,5 +5,5 @@ import com.acoders.readnetic.domain.Book
 import javax.inject.Inject
 
 class SwitchBookFavoriteUseCase @Inject constructor(private val repository: BookRepository) {
-    suspend operator fun  invoke(book: Book) = repository.switchFavorite(book)
+    /*suspend operator fun  invoke(book: Book) = repository.switchFavorite(book)*/
 }
