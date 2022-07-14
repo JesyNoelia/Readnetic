@@ -59,7 +59,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.error = it.error
         }
 
-        binding.btnAppDrawer.setOnClickListener {
+        binding.btnQr.setOnClickListener {
             barcodeLauncher.launch(configQRScan())
         }
 
@@ -91,6 +91,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             .setPrompt(getString(R.string.message_camera_scanner_isbn))
             .setCameraId(0) // Use a specific camera of the device
             .setOrientationLocked(false)
+
             .setBeepEnabled(false)
             .setBarcodeImageEnabled(true)
     }

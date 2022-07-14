@@ -65,7 +65,7 @@
                     android:layout_marginBottom="8dp"
                     android:gravity="center"
                     android:lines="1"
-                    android:text="@string/author_placeholder"
+                    android:text="@{book.authors}"
                     android:textColor="@color/black"
                     android:textSize="12sp" />
 
