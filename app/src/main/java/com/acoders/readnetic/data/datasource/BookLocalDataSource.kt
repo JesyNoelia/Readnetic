@@ -10,6 +10,6 @@ class BookLocalDataSource @Inject constructor(private val booksDao: BooksDao) {
 
     suspend fun getAllBooks(): List<BookEntity> = booksDao.getAllBooks()
 
-    fun getBookById(isbn: Int): Flow<BookEntity> = booksDao.getByIsbn(isbn)
+    fun getBookById(isbn: String): Flow<BookEntity> = booksDao.getByIsbn(isbn)
 
 }

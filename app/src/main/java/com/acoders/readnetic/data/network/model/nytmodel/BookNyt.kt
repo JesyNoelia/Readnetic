@@ -21,7 +21,7 @@ data class BookNyt(
   @SerializedName("first_chapter_link"   ) var firstChapterLink   : String?             = null,
   @SerializedName("price"                ) var price              : String?             = null,
   @SerializedName("primary_isbn10"       ) var primaryIsbn10      : String             ,
-  @SerializedName("primary_isbn13"       ) var primaryIsbn13      : String?             = null,
+  @SerializedName("primary_isbn13"       ) var primaryIsbn13      : String             ,
   @SerializedName("publisher"            ) var publisher          : String?             = null,
   @SerializedName("rank"                 ) var rank               : Int?                = null,
   @SerializedName("rank_last_week"       ) var rankLastWeek       : Int?                = null,

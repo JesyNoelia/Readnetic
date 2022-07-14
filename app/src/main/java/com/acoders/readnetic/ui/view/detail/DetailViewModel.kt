@@ -21,9 +21,9 @@ class DetailViewModel @Inject constructor(
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
 
-    fun loadIsbn(isbn: Int) {
+    fun loadIsbn(isbn: String) {
         viewModelScope.launch {
-            Log.d("***safeargs", isbn.toString())
+            Log.d("***safeargs", isbn)
             findBookByIsbnUseCase(isbn)
                 .catch { cause -> _state.update {
                     Log.d("***books", it.toString())

@@ -36,7 +36,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun navigateToDetail(result: ScanIntentResult){
         findNavController().navigate(
-            HomeFragmentDirections.actionHomeFragmentToDetailFragment(result.contents.toInt())
+            HomeFragmentDirections.actionHomeFragmentToDetailFragment(result.contents)
         )
     }
 

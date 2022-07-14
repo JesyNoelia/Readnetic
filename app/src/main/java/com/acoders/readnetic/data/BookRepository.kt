@@ -57,6 +57,6 @@ class BookRepository @Inject constructor(
             return localDataSource.save(listOf(updatedBook))
         }*/
 
-    fun getLocalBookByIsbn(isbn: Int): Flow<Book> =
+    fun getLocalBookByIsbn(isbn: String): Flow<Book> =
         localDataSource.getBookById(isbn).map { it.toBook() }
 }

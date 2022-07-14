@@ -14,5 +14,5 @@ interface BooksDao {
     suspend fun getAllBooks(): List<BookEntity>
 
     @Query("SELECT * FROM BookEntity WHERE isbn = :isbn")
-    fun getByIsbn(isbn: Int): Flow<BookEntity>
+    fun getByIsbn(isbn: String): Flow<BookEntity>
 }
