@@ -8,8 +8,10 @@ import javax.inject.Inject
 class BookLocalDataSource @Inject constructor(private val booksDao: BooksDao) {
     suspend fun saveAllBooks(books: List<BookEntity>) = booksDao.insert(books)
 
-    suspend fun getAllBooks(): List<BookEntity> = booksDao.getAllBooks()
+    fun getAllBooks(): Flow<List<BookEntity>> = booksDao.getAllBooks()
 
     fun getBookById(isbn: String): Flow<BookEntity> = booksDao.getByIsbn(isbn)
+
+    fun isEmpty(): Boolean = booksDao.bookCount() ==0
 
 }

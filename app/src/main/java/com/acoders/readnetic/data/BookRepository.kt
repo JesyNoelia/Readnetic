@@ -1,6 +1,7 @@
 package com.acoders.readnetic.data
 
 
+import com.acoders.readnetic.data.database.entity.BookEntity
 import com.acoders.readnetic.data.datasource.BookLocalDataSource
 import com.acoders.readnetic.data.datasource.BookRemoteDataSource
 import com.acoders.readnetic.data.network.Resource
@@ -38,10 +39,15 @@ class BookRepository @Inject constructor(
         return localDataSource.saveAllBooks(books.map { it.toBookEntity() })
     }
 
-    suspend fun getLocalBestsellers(): List<Book> {
+    suspend fun getLocalBestsellers(): Flow<Unit> {
         val books = localDataSource.getAllBooks()
         return books.map { it.toBook() }
     }
+
+    /*suspend fun getLocalBestsellers(): List<Book> {
+        val books = localDataSource.getAllBooks()
+        return books.map { it.toBook() }
+    }*/
 
     suspend fun getRemoteBestsellers(): Resource<List<Book>> {
         val bookList = remoteDataSource.getBestsellers()
@@ -51,11 +57,11 @@ class BookRepository @Inject constructor(
         }
     }
 
-    /*suspend fun switchFavorite(book: Book): Error? =
+    suspend fun switchFavorite(book: BookEntity) =
         tryCall {
-            val updatedBook = book.copy(favorite = !book.favorite!!)
-            return localDataSource.save(listOf(updatedBook))
-        }*/
+            val updatedBook = book.copy(favorite = !book.favorite)
+            localDataSource.saveAllBooks(listOf(updatedBook))
+        }
 
     fun getLocalBookByIsbn(isbn: String): Flow<Book> =
         localDataSource.getBookById(isbn).map { it.toBook() }

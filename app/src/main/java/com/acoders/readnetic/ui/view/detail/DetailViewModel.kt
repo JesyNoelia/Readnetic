@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.acoders.readnetic.domain.Book
 import com.acoders.readnetic.domain.Error
+import com.acoders.readnetic.domain.toBookEntity
 import com.acoders.readnetic.domain.toError
 import com.acoders.readnetic.usecase.FindBookByIsbnUseCase
 import com.acoders.readnetic.usecase.SwitchBookFavoriteUseCase
@@ -34,7 +35,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    /*fun onFavoriteClicked() {
+    fun onFavoriteClicked() {
         viewModelScope.launch {
             _state.value.book?.let { book ->
                 val error = switchBookFavoriteUseCase(book)
@@ -42,7 +43,7 @@ class DetailViewModel @Inject constructor(
 
             }
         }
-    }*/
+    }
 
     data class UiState(val book: Book? = null, val error: Error? = null)
 }

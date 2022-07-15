@@ -25,7 +25,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         val binding = FragmentDetailBinding.bind(view)
         binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
-        binding.bookDetailFavorite.setOnClickListener { /*viewModel.onFavoriteClicked()*/ }
+        binding.bookDetailFavorite.setOnClickListener { viewModel.onFavoriteClicked() }
         viewModel.loadIsbn(safeArgs.book)
 
         viewLifecycleOwner.launchAndCollect(viewModel.state) { state ->
