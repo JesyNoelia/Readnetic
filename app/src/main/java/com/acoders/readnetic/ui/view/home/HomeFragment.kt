@@ -51,11 +51,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         viewModel.onUiReady()
 
-        viewLifecycleOwner.launchAndCollect(viewModel.state) {state ->
-            binding.loading = state.loading
-            binding.books = state.books
+        viewLifecycleOwner.launchAndCollect(viewModel.state) {
+            binding.loading = it.loading
+            binding.books = it.books
+            Log.d("fragment", it.books.toString())
             /*binding.error = it.error?.let(homeState::errorToString)*/
-            binding.error = state.error
+            binding.error = it.error
         }
 
         binding.btnQr.setOnClickListener {
