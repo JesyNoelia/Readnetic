@@ -21,4 +21,12 @@
     <string name="cover">Cover</string>
     <string name="title_place_holder">Title Place Holder</string>
     <string name="author_placeholder">Author PlaceHolder</string>
+
+    <!-- ISBN Scanner -->
+    <string name="message_camera_scanner_isbn">Escanea el ISBN</string>
+
+    <!-- Error -->
+    <string name="connectivity_error">Connectivity Error</string>
+    <string name="server_error">\"Server Error: \"</string>
+    <string name="unknown_error">\"Unknown Error: \"</string>
 </resources>
