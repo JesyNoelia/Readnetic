@@ -39,12 +39,12 @@ class BookRepository @Inject constructor(
         return localDataSource.saveAllBooks(books.map { it.toBookEntity() })
     }
 
-    suspend fun getLocalBestsellers(): Flow<Unit> {
+    fun getLocalBestsellers(): Flow<List<Book>> {
         val books = localDataSource.getAllBooks()
-        return books.map { it.toBook() }
-    }
+        return books.map { list ->list.map{bookEntity -> bookEntity.toBook()  }
+    }}
 
-    /*suspend fun getLocalBestsellers(): List<Book> {
+    /*fun getLocalBestsellers(): Flow<List<Book>> {
         val books = localDataSource.getAllBooks()
         return books.map { it.toBook() }
     }*/
@@ -63,6 +63,6 @@ class BookRepository @Inject constructor(
             localDataSource.saveAllBooks(listOf(updatedBook))
         }
 
-    fun getLocalBookByIsbn(isbn: String): Flow<Book> =
-        localDataSource.getBookById(isbn).map { it.toBook() }
+    /*fun getLocalBookByIsbn(isbn: String): Flow<Book> =
+        localDataSource.getBookById(isbn).map { it.toBook() }*/
 }
