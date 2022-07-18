@@ -10,7 +10,7 @@
 
         <variable
             name="loading"
-            type="boolean" />
+            type="Boolean" />
 
         <variable
             name="books"
@@ -221,12 +221,12 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnAppDrawer"
+            android:id="@+id/btnQr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/palmLightGreen"
             android:elevation="5dp"
-            android:src="@drawable/ic_widgets"
+            android:src="@drawable/ic_qr_code_scanner"
             app:backgroundTint="@color/palmLightGreen"
             app:layout_anchor="@id/app_bar"
             app:maxImageSize="30dp"

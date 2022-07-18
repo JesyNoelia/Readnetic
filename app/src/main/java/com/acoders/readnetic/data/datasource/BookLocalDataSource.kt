@@ -1,14 +1,15 @@
 package com.acoders.readnetic.data.datasource
 
-import com.acoders.readnetic.domain.Book
-import com.acoders.readnetic.domain.Error
+import com.acoders.readnetic.data.database.dao.BooksDao
+import com.acoders.readnetic.data.database.entity.BookEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-interface BookLocalDataSource {
-    val books: Flow<List<Book>>
+class BookLocalDataSource @Inject constructor(private val booksDao: BooksDao) {
+    suspend fun saveAllBooks(books: List<BookEntity>) = booksDao.insert(books)
 
-    suspend fun isEmpty(): Boolean
-    fun findById(id: Int): Flow<Book>
-    suspend fun save(movies: List<Book>): Error?
+    suspend fun getAllBooks(): List<BookEntity> = booksDao.getAllBooks()
+
+    fun getBookById(isbn: String): Flow<BookEntity> = booksDao.getByIsbn(isbn)
+
 }

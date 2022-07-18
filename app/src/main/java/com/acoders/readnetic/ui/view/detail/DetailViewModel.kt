@@ -1,12 +1,12 @@
 package com.acoders.readnetic.ui.view.detail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.acoders.readnetic.domain.Book
 import com.acoders.readnetic.domain.Error
 import com.acoders.readnetic.domain.toError
-import com.acoders.readnetic.usecase.FindBookByIdUseCase
+import com.acoders.readnetic.usecase.FindBookByIsbnUseCase
 import com.acoders.readnetic.usecase.SwitchBookFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -15,23 +15,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    bookId: Int,
-    findBookByIdUseCase: FindBookByIdUseCase,
+    private val findBookByIsbnUseCase: FindBookByIsbnUseCase,
     private val switchBookFavoriteUseCase: SwitchBookFavoriteUseCase
 ) : ViewModel() {
-
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
 
-    init {
+    fun loadIsbn(isbn: String) {
         viewModelScope.launch {
-            findBookByIdUseCase(bookId)
-                .catch { cause -> _state.update { it.copy(error = cause.toError()) } }
-                .collect { book -> _state.update { UiState(book = book) } }
+            Log.d("***safeargs", isbn)
+            findBookByIsbnUseCase(isbn)
+                .catch { cause -> _state.update {
+                    Log.d("***books", it.toString())
+                    it.copy(error = cause.toError()) } }
+                .collect { book -> _state.update {
+                    Log.d("***books", it.toString())
+                    UiState(book = book) } }
         }
     }
 
-    fun onFavoriteClicked() {
+    /*fun onFavoriteClicked() {
         viewModelScope.launch {
             _state.value.book?.let { book ->
                 val error = switchBookFavoriteUseCase(book)
@@ -39,7 +42,7 @@ class DetailViewModel @Inject constructor(
 
             }
         }
-    }
+    }*/
 
     data class UiState(val book: Book? = null, val error: Error? = null)
 }

@@ -27,8 +27,8 @@
 
         <argument
             android:name="book"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            app:argType="string"
+            android:defaultValue="null" />
     </fragment>
 
 </navigation>

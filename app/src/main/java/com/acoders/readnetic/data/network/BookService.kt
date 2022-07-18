@@ -11,11 +11,11 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class BookService @Inject constructor(
-    private val apiGoogleBooks: BookApiClientGoogleBooks,
+    /*private val apiGoogleBooks: BookApiClientGoogleBooks,*/
     private val apiNYT: BookApiClientNYT
 ) {
 
-    suspend fun getBooksByISBN(isbn: String): Resource<List<BookGoogleBooks>> {
+    /*suspend fun getBooksByISBN(isbn: String): Resource<List<BookGoogleBooks>> {
         return withContext(Dispatchers.IO) {
             val query = buildIsbnQuery(isbn)
             val responseGoogleBooks: Response<ResponseGoogleBooks> =
@@ -38,7 +38,7 @@ class BookService @Inject constructor(
                 Resource.Error("API error")
             }
         }
-    }
+    }*/
 
     private fun buildIsbnQuery(isbn: String): String {
         return String.format("isbn:$isbn")
@@ -48,19 +48,19 @@ class BookService @Inject constructor(
         return withContext(Dispatchers.IO) {
             val responseNyt: Response<ResponseNyt> = apiNYT.getAllBooks()
             try {
-                val lists: List<Lists> = responseNyt.body()?.results?.lists ?: emptyList()
-                Resource.Success(unifyAllBooksFromCategories(lists))
+                val lists = responseNyt.body()?.results?.lists?.get(0)?.books ?: emptyList()
+                Resource.Success(lists)
             } catch (e: Exception) {
                 Resource.Error("API error")
             }
         }
     }
 
-    private fun unifyAllBooksFromCategories(lists: List<Lists>): List<BookNyt>{
+    /*private fun unifyAllBooksFromCategories(lists: List<Lists>): List<BookNyt>{
         val bookList: MutableList<BookNyt> = mutableListOf()
         lists.forEach {
             bookList.addAll(it.books)
         }
         return bookList
-    }
+    }*/
 }
