@@ -63,6 +63,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             barcodeLauncher.launch(configQRScan())
         }
 
+
 /*binding.searchView.setOnQueryTextListener(object :
     android.widget.SearchView.OnQueryTextListener {
     override fun onQueryTextChange(newText: String): Boolean {

@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class BookLocalDataSource @Inject constructor(private val booksDao: BooksDao) {
+
     suspend fun saveAllBooks(books: List<BookEntity>) = booksDao.insert(books)
 
     fun getAllBooks(): Flow<List<BookEntity>> = booksDao.getAllBooks()

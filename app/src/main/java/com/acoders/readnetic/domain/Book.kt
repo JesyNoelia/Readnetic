@@ -47,3 +47,18 @@ fun BookEntity.toBook() =
         date = date,
         favorite = favorite
     )
+
+/*
+fun List<BookEntity>.toBook(): List<Book> {
+    return map {
+        Book(
+            isbn = it.isbn,
+            authors = it.author,
+            title = it.title,
+            description = it.description,
+            bookPicture = it.imageUrl,
+            date = it.date,
+            favorite = it.favorite
+        )
+    }
+}*/

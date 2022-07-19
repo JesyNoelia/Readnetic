@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface BooksDao {
 
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(books: List<BookEntity>)
 

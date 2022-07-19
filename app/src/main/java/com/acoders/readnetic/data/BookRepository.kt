@@ -49,6 +49,7 @@ class BookRepository @Inject constructor(
         return books.map { it.toBook() }
     }*/
 
+
     suspend fun getRemoteBestsellers(): Resource<List<Book>> {
         val bookList = remoteDataSource.getBestsellers()
         return when (bookList.data) {
