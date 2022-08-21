@@ -19,15 +19,12 @@ class BookRepository @Inject constructor(
     private val localDataSource: BookLocalDataSource
 ) {
 
-    /*suspend fun getBooksByISBN(isbn: String): Resource<List<Book>> {
-        val bookList = service.getBooksByISBN(isbn)
-        return when (bookList.data) {
-            null -> Resource.Error(bookList.message ?: "Something went wrong")
-            else -> Resource.Success(bookList.data.map { it.toBook() })
-        }
-    }
+    fun getLocalBookByIsbn(isbn: String): Flow<Book> =
+         localDataSource.getBookByISBN(isbn).map { it.toBook() }
 
-    suspend fun getBooksByAnyData(data: String): Resource<List<Book>> {
+
+
+    /*suspend fun getBooksByAnyData(data: String): Resource<List<Book>> {
         val bookList = service.getBooksByAnyData(data)
         return when (bookList.data) {
             null -> Resource.Error(bookList.message ?: "Something went wrong")
@@ -35,20 +32,13 @@ class BookRepository @Inject constructor(
         }
     }*/
 
-    suspend fun saveLocalBestsellers(books: List<Book>) {
-        return localDataSource.saveAllBooks(books.map { it.toBookEntity() })
+    suspend fun saveLocalBestsellers(books: List<Book>) =
+        localDataSource.saveAllBooks(books.map { it.toBookEntity() })
+
+
+    fun getLocalBestsellers(): Flow<List<Book>> =
+        localDataSource.getAllBooks().map { list ->list.map{bookEntity -> bookEntity.toBook()  }
     }
-
-    fun getLocalBestsellers(): Flow<List<Book>> {
-        val books = localDataSource.getAllBooks()
-        return books.map { list ->list.map{bookEntity -> bookEntity.toBook()  }
-    }}
-
-    /*fun getLocalBestsellers(): Flow<List<Book>> {
-        val books = localDataSource.getAllBooks()
-        return books.map { it.toBook() }
-    }*/
-
 
     suspend fun getRemoteBestsellers(): Resource<List<Book>> {
         val bookList = remoteDataSource.getBestsellers()
@@ -64,6 +54,4 @@ class BookRepository @Inject constructor(
             localDataSource.saveAllBooks(listOf(updatedBook))
         }
 
-    /*fun getLocalBookByIsbn(isbn: String): Flow<Book> =
-        localDataSource.getBookById(isbn).map { it.toBook() }*/
 }

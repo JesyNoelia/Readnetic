@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.acoders.readnetic.data.BookRepository
 import com.acoders.readnetic.domain.Book
+import com.acoders.readnetic.domain.Error
+import com.acoders.readnetic.domain.toError
 import com.acoders.readnetic.usecase.GetBestsellersUseCase
 import com.acoders.readnetic.usecase.GetBooksByISBNUseCase
 import com.acoders.readnetic.usecase.GetPopularBooksUseCase
@@ -47,19 +49,26 @@ viewModelScope.launch {
             _state.value = UiState(loading = true)
             val books = getBestSellersUseCase()
             if (books.data == null) {
-                val localBooks = repository.getLocalBestsellers()
-                _state.value = UiState(books = localBooks, loading = false)
+                repository.getLocalBestsellers()
+                    .catch { cause -> _state.update {
+                    Log.d("***booksError", it.toString())
+                    it.copy(error = cause.toError()) } }
+
+                    .collect{
+                        _state.value = UiState(books = it, loading = false)
+                        Log.d("***books", it.toString())
+                    }
+
             } else {
-                _state.value = UiState(books= books.data, loading = false)
+                _state.value = UiState(books = books.data, loading = false)
                 repository.saveLocalBestsellers(books.data)
             }
         }
     }
 
-
     data class UiState(
         val loading: Boolean = false,
         val books: List<Book>? = null,
-        val error: String? = null
+        val error: Error? = null
     )
 }
