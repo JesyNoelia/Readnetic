@@ -17,9 +17,9 @@ interface BooksDao {
     @Query("SELECT * FROM BookEntity WHERE isbn = :isbn")
     fun getByIsbn(isbn: String): Flow<BookEntity>
 
-     @Update
+    @Update
     suspend fun updateBook(book: BookEntity)
 
     @Query("SELECT COUNT(isbn) FROM BookEntity")
-    fun bookCount() : Int
+    suspend fun bookCount() : Int
 }

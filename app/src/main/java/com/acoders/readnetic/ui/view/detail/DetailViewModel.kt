@@ -22,6 +22,7 @@ class DetailViewModel @Inject constructor(
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
 
+
     fun loadIsbn(isbn: String) {
         viewModelScope.launch {
             Log.d("***safeargs", isbn)

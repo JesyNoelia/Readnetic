@@ -13,6 +13,6 @@ class BookLocalDataSource @Inject constructor(private val booksDao: BooksDao) {
 
     fun getBookByISBN(isbn: String): Flow<BookEntity> = booksDao.getByIsbn(isbn)
 
-    fun isEmpty(): Boolean = booksDao.bookCount() ==0
+    suspend fun isEmpty(): Boolean = booksDao.bookCount() ==0
 
 }

@@ -10,23 +10,24 @@ data class Book(
     val description: String,
     val bookPicture: String,
     val date: String,
-    val favorite: Boolean = false
+    val favorite: Boolean
     //val pages: String,
     //val gender: String,
     //val profileAuthorPicture: String?
 )
 
-fun BookNyt.toBook() =
+fun BookNyt.toBook() : Book =
     Book(
         isbn = primaryIsbn13,
         authors = author,
         title = title,
         description = description,
         bookPicture = bookImage,
-        date = createdDate
+        date = createdDate,
+        false
     )
 
-fun Book.toBookEntity() =
+fun Book.toBookEntity() : BookEntity =
     BookEntity(
         isbn = isbn,
         author = authors,
@@ -37,7 +38,7 @@ fun Book.toBookEntity() =
         favorite = favorite
     )
 
-fun BookEntity.toBook() =
+fun BookEntity.toBook() : Book =
     Book(
         isbn = isbn,
         authors = author,
