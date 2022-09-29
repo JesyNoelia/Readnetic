@@ -1,6 +1,8 @@
 # Readnetic
 An Android application implemented using the MVVM pattern, Retrofit2, Dagger Hilt, LiveData, ViewModel, Coroutines, Room, Navigation Components, Data Binding and some other libraries from the [Android Jetpack](https://developer.android.com/jetpack) . Readnetic fetches data from the [NYT API](https://developer.nytimes.com/apis)
 
+<p align="center"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/favorites/media/vistas.png" width="700"></a></p>
+
 ## Architecture
 The architecture of this application relies and complies with the following points below:
 * A single-activity architecture, using the [Navigation Components](https://developer.android.com/guide/navigation) to manage fragment operations.
