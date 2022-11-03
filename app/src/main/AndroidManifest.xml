@@ -18,7 +18,7 @@
         android:hardwareAccelerated="true"
         android:theme="@style/Theme.Readnetic">
         <activity
-            android:name=".ui.view.ReadneticActivity"
+            android:name=".ui.ReadneticActivity"
             android:exported="true"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation">
