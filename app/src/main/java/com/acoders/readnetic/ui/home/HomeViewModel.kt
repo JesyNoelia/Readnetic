@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.acoders.readnetic.domain.Book
 import com.acoders.readnetic.domain.Error
+import com.acoders.readnetic.domain.toError
 import com.acoders.readnetic.domain.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -38,7 +39,11 @@ class HomeViewModel @Inject constructor(
     private fun saveFavoritesFromLocal() {
         viewModelScope.launch {
             getBookListFromLocalUseCase()
-                .catch { println("There was a problem: $it") }
+                .catch { cause ->
+                    _state.update {
+                        it.copy(error = cause.toError())
+                    }
+                }
                 .collect {
                     println("The local list is: $it")
                     if (it.isEmpty()) isDbEmpty = true
@@ -50,7 +55,11 @@ class HomeViewModel @Inject constructor(
     private fun updateBookListFromRemote() {
         viewModelScope.launch {
             getBookListFromRemoteUseCase()
-                .catch { println("There was a problem: $it") }
+                .catch { cause ->
+                    _state.update {
+                        it.copy(error = cause.toError())
+                    }
+                }
                 .collect {
                     updateFavoriteBookList(it)
                     println("The remote list is: $it")
@@ -64,10 +73,16 @@ class HomeViewModel @Inject constructor(
     private fun getBookListFromLocal() {
         viewModelScope.launch {
             getBookListFromLocalUseCase()
-                .catch { println("There was a problem: $it") }
-                .collect {
-                    println("The updated local list is: $it")
-                    _state.value = UiState(books = it)
+                .catch { cause ->
+                    _state.update {
+                        it.copy(error = cause.toError())
+                    }
+                }
+                .collect { book ->
+                    _state.update {
+                        println("The updated local list is: $it")
+                        UiState(books = book)
+                    }
                 }
         }
     }
