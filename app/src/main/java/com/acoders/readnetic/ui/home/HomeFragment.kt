@@ -5,16 +5,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.acoders.readnetic.R
 import com.acoders.readnetic.databinding.FragmentHomeBinding
+import com.acoders.readnetic.domain.Book
 import com.acoders.readnetic.ui.extensions.launchAndCollect
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -27,15 +26,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             Toast.makeText(activity, "Cancelled", Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(activity, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
-            lifecycleScope.launch {
-                navigateToDetail(result)
+            viewLifecycleOwner.launchAndCollect(viewModel.state) { state ->
+                getBookFromQRIsbn(result)
+                state.book?.let { navigateToDetail(it) }
             }
         }
     }
 
-    private fun navigateToDetail(result: ScanIntentResult) {
+    private fun getBookFromQRIsbn(result: ScanIntentResult) {
+        viewModel.loadIsbn(result.contents)
+    }
+
+    private fun navigateToDetail(book: Book) {
         findNavController().navigate(
-            HomeFragmentDirections.actionHomeFragmentToDetailFragment(result.contents)
+            HomeFragmentDirections.actionHomeFragmentToDetailFragment(book)
         )
     }
 

@@ -24,11 +24,9 @@
         android:name="com.acoders.readnetic.ui.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
-
         <argument
             android:name="book"
-            app:argType="string"
-            android:defaultValue="null" />
+            app:argType="com.acoders.readnetic.domain.Book" />
     </fragment>
 
 </navigation>

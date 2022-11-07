@@ -29,4 +29,6 @@
     <string name="connectivity_error">Connectivity Error</string>
     <string name="server_error">\"Server Error: \"</string>
     <string name="unknown_error">\"Unknown Error: \"</string>
+    <string name="book_image">book_image</string>
+    <string name="favorite_button">favorite_button</string>
 </resources>

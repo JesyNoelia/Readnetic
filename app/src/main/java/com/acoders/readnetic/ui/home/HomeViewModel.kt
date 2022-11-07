@@ -1,5 +1,6 @@
 package com.acoders.readnetic.ui.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.acoders.readnetic.domain.Book
@@ -17,7 +18,8 @@ class HomeViewModel @Inject constructor(
     private val getBookListFromRemoteUseCase: GetBookListFromRemoteUseCase,
     private val getBookListFromLocalUseCase: GetBookListFromLocalUseCase,
     private val saveBookListInLocalUseCase: SaveBookListInLocalUseCase,
-    private val updateFavoriteBookInLocalUseCase: UpdateFavoriteBookInLocalUseCase
+    private val updateFavoriteBookInLocalUseCase: UpdateFavoriteBookInLocalUseCase,
+    private val getBookByISBNUseCase: GetBookByISBNUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(UiState())
@@ -100,21 +102,43 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun updateFavoriteBookList(list: List<Book>) {
+        println("updateFavoriteBookList")
         list.forEach { book ->
             favoriteList.forEach { favoriteBook ->
+                println("book isbn: ${book.isbn}")
+                println("favoriteBook: $favoriteBook")
                 if (book.isbn == favoriteBook) {
-                    val bookToUpdate = book.copy(
-                        favorite = true
-                    )
+                    val bookToUpdate = book.copy(favorite = true)
                     updateFavoriteBookInLocalUseCase(bookToUpdate)
                 }
             }
+        }
+        println("La lista de favoritos es: $favoriteList")
+    }
+
+    fun loadIsbn(isbn: String) {
+        viewModelScope.launch {
+            Log.d("***QRScan", isbn)
+            getBookByISBNUseCase(isbn)
+                .catch { cause ->
+                    _state.update {
+                        Log.d("***books", it.toString())
+                        it.copy(error = cause.toError())
+                    }
+                }
+                .collect { book ->
+                    _state.update {
+                        Log.d("***books", it.toString())
+                        UiState(book = book)
+                    }
+                }
         }
     }
 
     data class UiState(
         val loading: Boolean = false,
         val books: List<Book>? = null,
+        val book: Book? = null,
         val error: Error? = null
     )
 }

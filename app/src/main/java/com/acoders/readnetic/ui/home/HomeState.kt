@@ -19,7 +19,7 @@ class HomeState(
     private val navController: NavController,
 ) {
     fun onBookClicked(book: Book) {
-        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(book.isbn)
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(book)
         navController.navigate(action)
     }
 
