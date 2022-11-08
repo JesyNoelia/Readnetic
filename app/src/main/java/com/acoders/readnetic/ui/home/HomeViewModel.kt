@@ -102,7 +102,6 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun updateFavoriteBookList(list: List<Book>) {
-        println("updateFavoriteBookList")
         list.forEach { book ->
             favoriteList.forEach { favoriteBook ->
                 println("book isbn: ${book.isbn}")

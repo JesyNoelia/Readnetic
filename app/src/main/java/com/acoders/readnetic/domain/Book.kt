@@ -42,5 +42,6 @@ fun BookEntity.toBook() =
         title = title,
         description = description,
         bookPicture = imageUrl,
-        date = date
+        date = date,
+        favorite = favorite
     )

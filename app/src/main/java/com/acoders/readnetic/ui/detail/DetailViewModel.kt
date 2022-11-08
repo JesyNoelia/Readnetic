@@ -33,14 +33,13 @@ class DetailViewModel @Inject constructor(
                 )
 
                 println("***favorite: $bookToUpdate")
-                try{updateFavoriteBookInLocalUseCase(bookToUpdate).apply {
+                updateFavoriteBookInLocalUseCase(bookToUpdate).apply {
                     saveItem(bookToUpdate)
+                    getBookListFromLocalUseCase().collect{
+                        println("Este es el listado justo despues de actualizar la db: $it")
+                    }
                 }
-                } catch (e: Exception){  println("El error es: $e")}
 
-                getBookListFromLocalUseCase().collect{
-                    println("Este es el listado justo despues de actualizar la db: $it")
-                }
             }
         }
     }
