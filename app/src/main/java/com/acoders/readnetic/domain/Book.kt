@@ -1,7 +1,8 @@
 package com.acoders.readnetic.domain
 
 import com.acoders.readnetic.data.database.entity.BookEntity
-import com.acoders.readnetic.data.network.model.nytmodel.BookNyt
+import com.acoders.readnetic.data.network.model.BookNyt
+import java.io.Serializable
 
 data class Book(
     val isbn: String,
@@ -11,10 +12,7 @@ data class Book(
     val bookPicture: String,
     val date: String,
     val favorite: Boolean = false
-    //val pages: String,
-    //val gender: String,
-    //val profileAuthorPicture: String?
-)
+): Serializable
 
 fun BookNyt.toBook() =
     Book(

@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.acoders.readnetic.data.database.dao.BooksDao
 import com.acoders.readnetic.data.database.entity.BookEntity
 
-@Database(entities = [BookEntity::class], version = 1)
+@Database(entities = [BookEntity::class], version = 1, exportSchema = false)
 abstract class BooksDatabase: RoomDatabase() {
 
     companion object {

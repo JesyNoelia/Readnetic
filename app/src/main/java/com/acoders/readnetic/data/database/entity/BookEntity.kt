@@ -13,12 +13,10 @@ data class BookEntity(
     val title: String,
     @ColumnInfo(name = "description")
     val description: String,
-    @ColumnInfo(name = "favorite")
-    val favorite: Boolean,
     @ColumnInfo(name = "image_url")
     val imageUrl: String,
     @ColumnInfo(name = "date")
-    val date: String
+    val date: String,
+    @ColumnInfo(name = "favorite")
+    val favorite: Boolean
 )
-
-

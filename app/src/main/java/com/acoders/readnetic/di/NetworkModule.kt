@@ -1,6 +1,5 @@
 package com.acoders.readnetic.di
 
-import com.acoders.readnetic.data.network.BookApiClientGoogleBooks
 import com.acoders.readnetic.data.network.BookApiClientNYT
 import dagger.Module
 import dagger.Provides
@@ -14,22 +13,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
-    @Singleton
-    @Provides
-    @Named("Google Books")
-    fun provideRetrofitGoogleBooks(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://www.googleapis.com/books/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideBookApiClientGoogleBooks(@Named("Google Books") retrofit: Retrofit): BookApiClientGoogleBooks {
-        return retrofit.create(BookApiClientGoogleBooks::class.java)
-    }
 
     @Singleton
     @Provides
