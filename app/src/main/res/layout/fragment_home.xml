@@ -28,34 +28,22 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.view.home.HomeFragment">
 
-        <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/background_search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bookListRV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="24dp"
-        android:horizontalSpacing="6dp"
-        android:verticalSpacing="6dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:spanCount="2"
-        app:items="@{books}"
-        app:visible="@{ error == null }"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/app_bottom_bar"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bookListRV"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            android:horizontalSpacing="6dp"
+            android:verticalSpacing="6dp"
+            app:items="@{books}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toTopOf="@+id/app_bottom_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="2"
+            app:visible="@{ error == null }" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress"
@@ -63,177 +51,183 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            app:layout_constraintTop_toBottomOf="@id/searchView"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/app_bottom_bar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/app_bottom_bar"
-            app:visible="@{loading}"/>
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:visible="@{loading}" />
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/app_bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/app_bar"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/app_bottom_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:backgroundTint="@color/palmBlue"
-            app:fabCradleMargin="8dp"
-            app:fabCradleRoundedCornerRadius="50dp"
-            app:fabCradleVerticalOffset="6dp">
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <LinearLayout
+            <com.google.android.material.bottomappbar.BottomAppBar
+                android:id="@+id/app_bar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:backgroundTint="@color/palmBlue"
+                app:fabCradleMargin="8dp"
+                app:fabCradleRoundedCornerRadius="50dp"
+                app:fabCradleVerticalOffset="6dp">
 
                 <LinearLayout
-                    android:id="@+id/settingsBtn"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
+                    android:layout_marginEnd="16dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/im_button_app_bar1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_settings" />
+                    <LinearLayout
+                        android:id="@+id/settingsBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        tools:ignore="TouchTargetSizeCheck">
 
-                    <TextView
-                        android:id="@+id/tv_button_app_bar1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/settings"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        <ImageView
+                            android:id="@+id/im_button_app_bar1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_settings" />
+
+                        <TextView
+                            android:id="@+id/tv_button_app_bar1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/settings"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnHome"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        tools:ignore="TouchTargetSizeCheck">
+
+                        <ImageView
+                            android:id="@+id/im_button_app_bar2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_home" />
+
+                        <TextView
+                            android:id="@+id/tv_button_app_bar2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/homeapps"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:orientation="vertical"
+                        android:visibility="invisible">
+
+                        <ImageView
+                            android:id="@+id/im_button_app_bar3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_button_app_bar3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnWork"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        tools:ignore="TouchTargetSizeCheck">
+
+                        <ImageView
+                            android:id="@+id/im_button_app_bar4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/ic_favorite_on" />
+
+                        <TextView
+                            android:id="@+id/tv_button_app_bar4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/work"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btnKids"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        tools:ignore="TouchTargetSizeCheck">
+
+                        <ImageView
+                            android:id="@+id/im_button_app_bar5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/profile" />
+
+                        <TextView
+                            android:id="@+id/tv_button_app_bar5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/Profile"
+                            android:textAlignment="center"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/btnHome"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/im_button_app_bar2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_home" />
-
-                    <TextView
-                        android:id="@+id/tv_button_app_bar2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:hint="@string/homeapps"
-                        android:textAlignment="center"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:orientation="vertical"
-                    android:visibility="invisible">
-
-                    <ImageView
-                        android:id="@+id/im_button_app_bar3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_button_app_bar3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnWork"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/im_button_app_bar4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_favorite_on" />
-
-                    <TextView
-                        android:id="@+id/tv_button_app_bar4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:hint="@string/work"
-                        android:textAlignment="center"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btnKids"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/im_button_app_bar5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/profile" />
-
-                    <TextView
-                        android:id="@+id/tv_button_app_bar5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/Profile"
-                        android:textAlignment="center"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
+            </com.google.android.material.bottomappbar.BottomAppBar>
 
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnQr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/palmLightGreen"
+                android:elevation="5dp"
+                android:src="@drawable/ic_qr_code_scanner"
+                app:backgroundTint="@color/palmLightGreen"
+                app:layout_anchor="@id/app_bar"
+                app:maxImageSize="30dp"
+                app:tint="@color/white"
+                android:contentDescription="@string/qr_icon" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnQr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/palmLightGreen"
-            android:elevation="5dp"
-            android:src="@drawable/ic_qr_code_scanner"
-            app:backgroundTint="@color/palmLightGreen"
-            app:layout_anchor="@id/app_bar"
-            app:maxImageSize="30dp"
-            app:tint="@color/white" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
