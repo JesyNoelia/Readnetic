@@ -5,6 +5,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.DiffUtil
 import com.acoders.readnetic.ReadneticApp
 import kotlinx.coroutines.flow.Flow
@@ -35,3 +37,11 @@ fun <T> LifecycleOwner.launchAndCollect(
 
 val Context.app: ReadneticApp
     get() = applicationContext as ReadneticApp
+
+fun NavController.safeNavigate(direction: NavDirections) {
+    println("Navcontroller Click happened")
+    currentDestination?.getAction(direction.actionId)?.run {
+        println("Navcontroller Click Propagated")
+        navigate(direction)
+    }
+}

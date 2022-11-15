@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.acoders.readnetic.domain.Book
 import com.acoders.readnetic.domain.Error
-import com.acoders.readnetic.domain.usecase.GetBookListFromLocalUseCase
 import com.acoders.readnetic.domain.usecase.UpdateFavoriteBookInLocalUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -14,7 +13,6 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val updateFavoriteBookInLocalUseCase: UpdateFavoriteBookInLocalUseCase,
-    private val getBookListFromLocalUseCase: GetBookListFromLocalUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state.asStateFlow()
@@ -22,24 +20,14 @@ class DetailViewModel @Inject constructor(
     fun updateFavoriteProperty(isFavorite: Boolean) {
         viewModelScope.launch {
             _state.value.book?.let { book ->
-                val bookToUpdate = Book(
-                    isbn = book.isbn,
-                    authors = book.authors,
-                    title = book.title,
-                    description = book.description,
-                    bookPicture = book.bookPicture,
-                    date = book.date,
+                val bookToUpdate = book.copy(
                     favorite = isFavorite
                 )
 
                 println("***favorite: $bookToUpdate")
                 updateFavoriteBookInLocalUseCase(bookToUpdate).apply {
                     saveItem(bookToUpdate)
-                    getBookListFromLocalUseCase().collect{
-                        println("Este es el listado justo despues de actualizar la db: $it")
-                    }
                 }
-
             }
         }
     }

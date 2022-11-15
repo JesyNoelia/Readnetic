@@ -22,8 +22,8 @@ class HomeViewModel @Inject constructor(
     private val getBookByISBNUseCase: GetBookByISBNUseCase,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(UiState())
-    val state: StateFlow<UiState> = _state.asStateFlow()
+    private val _state = MutableSharedFlow<UiState>()
+    val state: SharedFlow<UiState> = _state.asSharedFlow()
 
     private val favoriteList: MutableList<String> = mutableListOf()
     private var isDbEmpty: Boolean = false
@@ -42,9 +42,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             getBookListFromLocalUseCase()
                 .catch { cause ->
-                    _state.update {
-                        it.copy(error = cause.toError())
-                    }
+                    _state.emit(UiState(error = cause.toError()) )
                 }
                 .collect {
                     println("The local list is: $it")
@@ -58,9 +56,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             getBookListFromRemoteUseCase()
                 .catch { cause ->
-                    _state.update {
-                        it.copy(error = cause.toError())
-                    }
+                    _state.emit(UiState(error = cause.toError()) )
                 }
                 .collect {
                     updateFavoriteBookList(it)
@@ -76,15 +72,11 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             getBookListFromLocalUseCase()
                 .catch { cause ->
-                    _state.update {
-                        it.copy(error = cause.toError())
-                    }
+                    _state.emit(UiState(error = cause.toError()) )
                 }
-                .collect { book ->
-                    _state.update {
-                        println("The updated local list is: $it")
-                        UiState(books = book)
-                    }
+                .collect { books ->
+                    _state.emit(UiState(books = books))
+                        println("The updated local list is: $books")
                 }
         }
     }
@@ -120,16 +112,12 @@ class HomeViewModel @Inject constructor(
             Log.d("***QRScan", isbn)
             getBookByISBNUseCase(isbn)
                 .catch { cause ->
-                    _state.update {
-                        Log.d("***books", it.toString())
-                        it.copy(error = cause.toError())
-                    }
+                    _state.emit(UiState(book = null) )
+                    Log.d("***errorLoadIsbn", cause.toString())
                 }
                 .collect { book ->
-                    _state.update {
-                        Log.d("***books", it.toString())
-                        UiState(book = book)
-                    }
+                    _state.emit(UiState(book = book))
+                        Log.d("***book", book.toString())
                 }
         }
     }
