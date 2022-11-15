@@ -5,15 +5,19 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.acoders.readnetic.R
 import com.acoders.readnetic.databinding.FragmentHomeBinding
 import com.acoders.readnetic.domain.Book
 import com.acoders.readnetic.ui.extensions.launchAndCollect
+import com.acoders.readnetic.ui.extensions.safeNavigate
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -22,13 +26,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var homeState: HomeState
     private val adapter = BooksAdapter { homeState.onBookClicked(it) }
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
-        if (result.contents == null) {
-            Toast.makeText(activity, "Cancelled", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(activity, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
-            viewLifecycleOwner.launchAndCollect(viewModel.state) { state ->
-                getBookFromQRIsbn(result)
-                state.book?.let { navigateToDetail(it) }
+        result.contents?.let {
+            println("Scanned: " + result.contents)
+            getBookFromQRIsbn(result)
+            manageIsbnResult()
+        } ?: Toast.makeText(activity, "Cancelled", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun manageIsbnResult() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.state.collectLatest { state ->
+                println("Book es: $state.book")
+                state.book?.let {
+                    println("***manageIsbnResult - Book es: $it")
+                    navigateToDetail(it)
+                } ?: Toast.makeText(activity, "ISBN not valid", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -38,7 +50,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun navigateToDetail(book: Book) {
-        findNavController().navigate(
+        findNavController().safeNavigate(
             HomeFragmentDirections.actionHomeFragmentToDetailFragment(book)
         )
     }
@@ -70,7 +82,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             .setPrompt(getString(R.string.message_camera_scanner_isbn))
             .setCameraId(0) // Use a specific camera of the device
             .setOrientationLocked(false)
-
             .setBeepEnabled(false)
             .setBarcodeImageEnabled(true)
     }

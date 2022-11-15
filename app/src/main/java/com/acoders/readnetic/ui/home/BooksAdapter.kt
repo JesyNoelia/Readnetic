@@ -1,6 +1,5 @@
 package com.acoders.readnetic.ui.home
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -23,7 +22,6 @@ class BooksAdapter(private val listener: (Book) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val book = getItem(position)
         holder.bind(book)
-        Log.d("***click",holder.itemView.toString())
         holder.itemView.setOnClickListener {
             listener(book) }
     }
