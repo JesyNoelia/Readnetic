@@ -1,8 +1,8 @@
 # Readnetic
 An Android application implemented using the MVVM pattern, Retrofit2, Dagger Hilt, LiveData, ViewModel, Coroutines, Room, Navigation Components, Data Binding and some other libraries from the [Android Jetpack](https://developer.android.com/jetpack) . Readnetic fetches data from the [NYT API](https://developer.nytimes.com/apis)
 
-<p align="center"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/master/home.png" width="400"></a></p>
-<p align="center"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/master/detail.png" width="400"></a></p>
+<p align="left"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/master/home.png" width="400"></a></p>
+<p align="right"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/master/detail.png" width="400"></a></p>
 
 ## Aditional Functionality
 The application allows QR scanning to search for books
