@@ -1,7 +1,16 @@
 # Readnetic
 An Android application implemented using the MVVM pattern, Retrofit2, Dagger Hilt, LiveData, ViewModel, Coroutines, Room, Navigation Components, Data Binding and some other libraries from the [Android Jetpack](https://developer.android.com/jetpack) . Readnetic fetches data from the [NYT API](https://developer.nytimes.com/apis)
 
-<p align="center"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/favorites/media/vistas.png" width="700"></a></p>
+<p align="center"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/master/home.png" width="700"></a></p>
+<p align="center"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/master/detail.png" width="700"></a></p>
+
+## Aditional Functionality
+The application allows QR scanning to search for books
+<p align="center"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/master/scaner.png" width="700"></a></p>
+
+## Example codes
+Here you will find some sample codes to test the functionality of the application
+<p align="center"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/master/qrexamples.png" width="700"></a></p>
 
 ## Architecture
 The architecture of this application relies and complies with the following points below:
@@ -9,7 +18,7 @@ The architecture of this application relies and complies with the following poin
 * Pattern [Model-View-ViewModel](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)(MVVM) which facilitates a separation of development of the graphical user interface.
 * [Android architecture components](https://developer.android.com/topic/libraries/architecture/) which help to keep the application robust, testable, and maintainable.
 
-<p align="center"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/favorites/media/mvvm.png" width="700"></a></p>
+<p align="center"><a><img src="https://github.com/JesyNoelia/Readnetic/blob/master/mvvm.png" width="700"></a></p>
 
 ## Technologies used:
 * [Retrofit](https://square.github.io/retrofit/) a REST Client for Android which makes it relatively easy to retrieve and upload JSON (or other structured data) via a REST based webservice.
@@ -30,7 +39,7 @@ Unit Tests verify the interactions of viewmodels between repositories and REST a
 - [Mockk](https://github.com/mockk/mockk) - a technique to make testing code readable and maintainable.
 
 ## Installation
-Instant Weather requires a minimum API level of 26.
+Readnectic requires a minimum API level of 26.
 
 ## Content Credits
 All copyrights of the contents, concepts, and phrases that are used in this open-source project belong to [NYT API](https://developer.nytimes.com/apis).
